@@ -3,10 +3,17 @@
         console.log "Computing statistics"
         stringData = rawData.join("\n")
         lines = stringData.split("\n")
-        data = {}
+        categoryFrequencies = {}
+        locationFrequencies = {}
         lines.forEach (line) ->
             split = line.split("|")
-            data[split[5]] = 0 unless data[split[5]] 
-            data[split[5]]++
-        data
+            categoryFequencies[split[5]] = 0 unless categoryFrequencies[split[5]] 
+            categoryFrequencies[split[5]]++
+
+            cc = split[7]
+            city = split[8]
+            locationIdentifier = cc.concat city
+            locationFrequencies[locationIdentifier] = 0 unless locationFrequencies[locationIdentifier]
+            locationFrequencies[locationIdentifier]++
+        { "category": categoryFrequencies, "location": locationFrequencies }
 )()
