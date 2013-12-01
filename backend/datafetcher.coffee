@@ -1,7 +1,7 @@
 (->
     http = require "http"
     unzip = require "unzip"
-    fs = require "fs"
+    fs = require "fs-extra"
     statistics = require "./statistics.js"
     
     unpackData = (callback) ->
@@ -33,4 +33,6 @@
                 console.log "Downloaded"
                 unpackData ->
                     extract callback
+                    fs.remove "data/"
+                    fs.remove "data.zip"
 )()
