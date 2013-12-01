@@ -6,13 +6,14 @@
         categoryFrequencies = {}
         locationFrequencies = {}
         lines.forEach (line) ->
+            return if line.indexOf("#") == 0 # Ignore comment lines
             split = line.split("|")
-            categoryFequencies[split[5]] = 0 unless categoryFrequencies[split[5]] 
+            categoryFrequencies[split[5]] = 0 unless categoryFrequencies[split[5]] 
             categoryFrequencies[split[5]]++
 
-            cc = split[7]
+            countryCode = split[7]
             city = split[8]
-            locationIdentifier = cc.concat city
+            locationIdentifier = countryCode + city
             locationFrequencies[locationIdentifier] = 0 unless locationFrequencies[locationIdentifier]
             locationFrequencies[locationIdentifier]++
         { "category": categoryFrequencies, "location": locationFrequencies }
