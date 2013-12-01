@@ -2,11 +2,9 @@
     module.exports.computeStatistics = (rawData) ->
         console.log "Computing statistics"
         stringData = rawData.join("")
-        console.log "String data length: #{stringData.length}"
         lines = stringData.split("\n")
         categoryFrequencies = {}
         locationFrequencies = {}
-        console.log "Lines to be inspected: #{lines.length}"
         lines.forEach (line) ->
             return if line.indexOf("#") == 0 # Ignore comment lines
             split = line.split("|")

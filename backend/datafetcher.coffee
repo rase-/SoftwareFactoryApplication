@@ -5,13 +5,7 @@
     exec = require("child_process").exec
     fs = require "fs-extra"
     statistics = require "./statistics.js"
-    
-    #unpackData = (callback) ->
-    #    fs.mkdirSync("data") unless fs.existsSync("data")
-    #    reader = fs.createReadStream("data.zip")
-    #    reader.pipe(unzip.Extract({path: "./data/"}))
-    #    reader.on "end", callback
-
+   
     puts = (error, stdout, stderr) ->
         sys.print "stdout: " + stdout if stdout
         sys.print "stderr: " + stderr if stderr
