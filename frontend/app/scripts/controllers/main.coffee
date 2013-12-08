@@ -1,9 +1,6 @@
 'use strict'
 
 angular.module('frontendApp')
-  .controller 'MainCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate'
-      'AngularJS'
-      'Karma'
-    ]
+  .controller 'MainCtrl', ($scope, $http) ->
+      $http.get "localhost:3000/data.json"
+          .success (data) -> $scope.data = data
