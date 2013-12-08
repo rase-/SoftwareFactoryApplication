@@ -15,9 +15,7 @@ drawChart = ->
 
             chart = new google.visualization.BarChart(document.getElementById('chart_div'))
             chart.draw(visualizationData, options)
-
-
-    
+             
 google.load("visualization", "1", {packages:["corechart"]})
 google.setOnLoadCallback(drawChart)
 
