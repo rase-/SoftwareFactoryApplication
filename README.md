@@ -22,7 +22,4 @@ should add a url parameter to the end like so:
 `curl 'http://localhost:3000/category.txt?useCached=false'`
 `curl 'http://localhost:3000/location.txt?useCached=false'`
 
-To view a visual representation of the data, you can go to the `frontend`
-directory in a separate terminal instance (while the server is running) and
-invoke `grunt server`. This command will show you an AngularJS application
-using Google Charts to visualize the given data.
+To view a visual representation of the data, you can go to the `frontend` directory in a separate terminal instance (while the server is running) and open index.html in any (almost) browser that supports JavaScript. Do not fear. If no prior requests have been made to the server, there is a delay before showing the chart while the server is downloading the data. 
