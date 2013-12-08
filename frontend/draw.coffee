@@ -9,7 +9,7 @@ drawChart = ->
                 visualizationData.addRow([key, val]);
 
             options = {
-                title: 'Lengths of dinosaurs, in meters',
+                title: 'Number of incidents per incident category',
                 legend: { position: 'none' }
             } 
 
