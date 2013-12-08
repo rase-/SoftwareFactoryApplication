@@ -15,8 +15,6 @@ app.all "*", (req, res, next) ->
 
 # Routes
 app.get "/data.json", (req, res) ->
-    console.log(req.query.hasOwnProperty "useCached")
-    console.log(req.query.useCached == "false")
     datacacher.clearCache() if req.query.useCached == "false"
     if datacacher.isCached()
         res.send datacacher.getCached()
