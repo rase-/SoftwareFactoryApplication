@@ -3,6 +3,7 @@ express = require "express"
 
 # Loading local modules
 datafetcher = require "./datafetcher.js"
+datacacher = require "./datacacher.js"
 
 app = express()
 
@@ -14,21 +15,32 @@ app.all "*", (req, res, next) ->
 
 # Routes
 app.get "/data.json", (req, res) ->
+    console.log(req.query.hasOwnProperty "useCached")
+    console.log(req.query.useCached == "false")
+    datacacher.clearCache() if req.query.useCached == "false"
+    if datacacher.isCached()
+        res.send datacacher.getCached()
+        return
     datafetcher.fetchData (data) ->
-        res.send data
-app.get "/category.txt", (req, res) ->
-    datafetcher.fetchData (data) ->
-        text = ""
-        for category, freq of data.category
-            text += "#{category} #{freq}\n"
-        res.send text
-app.get "/location.txt", (req, res) ->
-    datafetcher.fetchData (data) ->
-        text = ""
-        for location, freq of data.location
-            text += "#{location} #{freq}\n"
-        res.send text
+        res.json data
+        datacacher.cache data
 
+respondWithField = (field, req, res) ->
+    datacacher.clearCache() if req.query.useCached == "false"
+    respond = (data) ->
+        text = ""
+        for key, val of data[field]
+            text += "#{key} #{val}\n"
+        res.send text
+        datacacher.cache data
+    if datacacher.isCached() then datacacher.useCached respond else datafetcher.fetchData respond
+
+app.get "/category.txt", (req, res) ->
+    respondWithField "category", req, res
+
+app.get "/location.txt", (req, res) ->
+    respondWithField "location", req, res 
+    
 # Start app
 app.listen 3000
 console.log "Listening on port 3000"
