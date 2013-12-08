@@ -6,8 +6,9 @@ angular.module('frontendApp', [
   'ngSanitize',
   'ngRoute'
 ])
-  .config ($routeProvider, $sceDelegateProvider) ->
-    $sceDelegateProvider.resourceUrlWhitelist(["self", "http:/localhost:3000/**"])
+  .config ($routeProvider, $httpProvider) ->
+    $httpProvider.defaults.useXDomain = true
+    delete $httpProvider.defaults.headers.common['X-Requested-With']
     $routeProvider
       .when '/',
         templateUrl: 'views/main.html'
