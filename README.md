@@ -14,3 +14,15 @@ To run the application after building, invoke `make run`. Since the app is a
 web application, you need to make an HTTP request to get the statistics for the
 given tasks. To view frequencies by category, send a request with e.g.
 curl like so: `curl localhost:3000/category.txt`. To view by location: `curl localhost:3000/location.txt`.
+
+While running the server, after ant y first request, the data is cached in
+memory. Any request after the first are thus fast. If you wish to reload
+everything and rebuild the cache, you can do any request like normal, but you
+should add a url parameter to the end like so:
+`curl 'http://localhost:3000/category.txt?useCached=false'`
+`curl 'http://localhost:3000/location.txt?useCached=false'`
+
+To view a visual representation of the data, you can go to the `frontend`
+directory in a separate terminal instance (while the server is running) and
+invoke `grunt server`. This command will show you an AngularJS application
+using Google Charts to visualize the given data.
